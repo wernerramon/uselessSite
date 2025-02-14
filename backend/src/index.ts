@@ -5,15 +5,17 @@ import axios from 'axios';
 const app = express();
 const port = 5001;
 
-const prompt = "Generate a useless but true fact. Examples:\n" +
-    "\n" +
-    "- A shrimp's heart is located in its head.\n" +
-    "- Bananas are berries, but strawberries are not.\n" +
-    "- Wombat poop is cube-shaped.\n" +
-    "- A day on Venus is longer than a year on Venus.\n" +
-    "- The inventor of the frisbee was turned into a frisbee after he died.\n" +
-    "\n" +
-    "Now generate another useless but true fact:\n"
+const examples = [
+    "- A shrimp's heart is located in its head",
+    "- Bananas are berries, but strawberries are not",
+    "- Wombat poop is cube-shaped",
+    "- A day on Venus is longer than a year on Venus",
+    "- The inventor of the frisbee was turned into a frisbee after he died",
+];
+const prompt = "Generate a useless but true fact. Example: "
+    + examples[Math.floor(Math.random() * examples.length)]
+    + ".  Now generate another useless but true fact:";
+
 
 app.use(cors());
 app.use(express.json());
