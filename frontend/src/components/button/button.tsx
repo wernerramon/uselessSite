@@ -4,9 +4,10 @@ import { containerStyle, baseStyle, buttonStyle } from './button.styles';
 interface CartoonButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
-const CartoonButton = ({ onClick, children }: CartoonButtonProps) => {
+const CartoonButton = ({ onClick, children, disabled }: CartoonButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePress = useCallback(() => {
@@ -31,6 +32,7 @@ const CartoonButton = ({ onClick, children }: CartoonButtonProps) => {
         onMouseDown={() => setIsPressed(true)}
         onMouseUp={() => setIsPressed(false)}
         onMouseLeave={() => setIsPressed(false)}
+        disabled={disabled}
       >
         {children}
       </button>
