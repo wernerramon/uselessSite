@@ -1,23 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
+import CartoonButton from './components/button/button';
+import Popup from './components/popup/popup';
 import './App.css';
 
 function App() {
+  const [showPopup, setShowPopup] = useState(false);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Useless facts!</h1>
+      <CartoonButton onClick={() => setShowPopup(true)}>
+        Press Me!
+      </CartoonButton>
+      {showPopup && (
+        <Popup
+          text="Hello! This is your popup!"
+          onClose={() => setShowPopup(false)}
+        />
+      )}
       </header>
     </div>
   );
