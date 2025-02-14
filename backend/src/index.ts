@@ -27,7 +27,7 @@ app.get('/api', (req, res) => {
 // Route to get facts
 app.get('/fact', async (req, res) => {
   try {
-    const ollamaResponse = await axios.post('http://localhost:11434/api/generate', {
+    const ollamaResponse = await axios.post('http://host.docker.internal:11434/api/generate', {
       model: 'mistral',
       prompt: prompt,
       stream: false
