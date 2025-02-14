@@ -1,0 +1,120 @@
+# ================================================
+# OS and Editor Files
+# ================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+~$*
+
+# IDE Specific
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ================================================
+# Node.js
+# ================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp*
+.pnp.js
+
+# Local npm cache
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ================================================
+# Frontend (React)
+# ================================================
+# Build output
+frontend/build/
+frontend/.cache/
+frontend/coverage/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Parcel cache
+frontend/.parcel-cache/
+
+# Service worker
+frontend/src/serviceWorker.js
+
+# ================================================
+# Backend (Express/TypeScript)
+# ================================================
+backend/dist/
+backend/.env
+backend/*.log
+backend/logs/
+backend/.nyc_output/
+backend/coverage/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# ================================================
+# Testing
+# ================================================
+# Jest
+jest.config.js
+/junit.xml
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# ================================================
+# Environment Files
+# ================================================
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ================================================
+# Dependency directories
+# ================================================
+jspm_packages/
+bower_components/
+
+# ================================================
+# Debug Files
+# ================================================
+debug.log*
+*.log
+*.pid
+*.seed
+
+# ================================================
+# Optional
+# ================================================
+# Uncomment these if you use these tools
+# 
+# # Docker
+# .dockerignore
+# Dockerfile
+# docker-compose.yml
+# 
+# # Database
+# *.db
+# *.sqlite
+# 
+# # Python
+# __pycache__/
+# *.py[cod]
+# 
+# # Ruby
+# .bundle
+# vendor/
