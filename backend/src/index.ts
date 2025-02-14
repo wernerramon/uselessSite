@@ -6,15 +6,15 @@ const app = express();
 const port = 5001;
 
 const examples = [
-    "- A shrimp's heart is located in its head",
-    "- Bananas are berries, but strawberries are not",
-    "- Wombat poop is cube-shaped",
-    "- A day on Venus is longer than a year on Venus",
-    "- The inventor of the frisbee was turned into a frisbee after he died",
+    "A shrimp's heart is located in its head",
+    "Bananas are berries, but strawberries are not",
+    "Wombat poop is cube-shaped",
+    "A day on Venus is longer than a year on Venus",
+    "The inventor of the frisbee was turned into a frisbee after he died",
 ];
 const prompt = "Generate a useless but true fact. Example: "
     + examples[Math.floor(Math.random() * examples.length)]
-    + ".  Now generate another useless but true fact:";
+    + ".  Now generate ONE another useless but true fact:";
 
 
 app.use(cors());
