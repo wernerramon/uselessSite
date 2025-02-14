@@ -3,7 +3,7 @@ import cors from 'cors';
 import axios from 'axios';
 
 const app = express();
-const port = 5000;
+const port = 5001;
 
 const prompt = "Generate a useless but true fact. Examples:\n" +
     "\n" +
