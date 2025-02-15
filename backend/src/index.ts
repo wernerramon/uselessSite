@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import factRoutes from './routes/factsRoute';
+import usersRoute from "./routes/usersRoute";
 
 console.log('Starting server...');
 
@@ -34,6 +35,7 @@ mongoose
     });
 
 app.use('/fact', factRoutes);
+app.use('/user', usersRoute);
 app.use((req, res) => {
   console.log('Route not found:', req.url);
   res.status(500).json({ error: 'Internal Server Error' });
