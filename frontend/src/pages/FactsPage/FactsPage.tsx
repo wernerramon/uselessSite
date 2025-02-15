@@ -8,7 +8,7 @@ const FactsPage = () => {
         "Monkeys do not live in snow; they are found only in tropical and subtropical regions of the world, so it's a fact that monkeys never play in a winter wonderland.",
         "Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself.",
         "Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself."
-    ];
+    ]; // replace with call to BE to get facts
   return (
     <div style={factsPageStyles}>
         <header style={appHeaderStyles}>
