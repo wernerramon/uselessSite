@@ -11,7 +11,7 @@ interface SteppedSliderProps {
 }
 
 const SteppedSlider = ({onChange, marks, value}: SteppedSliderProps) => {
-    const [sliderValue, setSliderValue] = useState(0);
+    const [sliderValue, setSliderValue] = useState(value);
     
     const handleChange = (event: any, newValue: any) => {
         setSliderValue(newValue);

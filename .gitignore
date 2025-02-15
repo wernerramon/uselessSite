@@ -40,6 +40,7 @@ frontend/build/
 frontend/.cache/
 frontend/coverage/
 frontend/.env.local
+frontend/.env
 frontend/.env.development.local
 frontend/.env.test.local
 frontend/.env.production.local
