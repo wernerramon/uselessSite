@@ -58,5 +58,4 @@ export const copyButtonStyles: CSSProperties = {
     border: '2px solid #000',
     borderRadius: '5px',
     boxShadow: '3px 3px 0px #000',
-    fontFamily: "'Comic Sans MS', cursive, sans-serif",
   };

@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       <div style={hamburgerIconStyles} onClick={toggleMenu}>
         ☰
       </div>
-      <div style={{ ...menuStyles, transform: isMenuOpen ? 'translateX(0)' : 'translateX(-100%)' }}>
+      <div style={{ ...menuStyles, width: isMenuOpen ? '700px' : '0', opacity: isMenuOpen ? 1 : 0 }}>
         <Link
           to="/"
           style={location.pathname === '/' ? { ...menuItemStyles, ...activeMenuItemStyles } : menuItemStyles}

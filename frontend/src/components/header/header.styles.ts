@@ -11,29 +11,23 @@ export const headerStyles: CSSProperties = {
   zIndex: 1000,
   display: 'flex',
   alignItems: 'center',
+  borderBottom: '2px solid #282c34', 
 };
 
 export const hamburgerIconStyles: CSSProperties = {
   fontSize: '24px',
   cursor: 'pointer',
   color: 'white',
-  zIndex: 1001,
+  marginRight: '10px', 
 };
 
 export const menuStyles: CSSProperties = {
   display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '200px',
-  height: '100vh',
-  backgroundColor: '#282c34',
-  padding: '60px 20px 20px 20px',
-  boxShadow: '2px 0 4px rgba(0, 0, 0, 0.1)',
-  transform: 'translateX(-100%)', 
-  transition: 'transform 0.3s ease', 
+  gap: '20px',
+  overflow: 'hidden',
+  width: '0', 
+  opacity: 0, 
+  transition: 'width 0.3s ease, opacity 0.3s ease', 
 };
 
 export const menuItemStyles: CSSProperties = {
@@ -43,6 +37,7 @@ export const menuItemStyles: CSSProperties = {
   padding: '8px 16px',
   borderRadius: '5px',
   transition: 'background-color 0.3s ease',
+  whiteSpace: 'nowrap', 
 };
 
 export const activeMenuItemStyles: CSSProperties = {
