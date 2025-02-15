@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { headerStyles, hamburgerIconStyles, menuStyles, menuItemStyles, activeMenuItemStyles } from './header.styles';
+import { 
+  headerStyles, 
+  hamburgerIconStyles, 
+  menuStyles, 
+  menuItemStyles, 
+  activeMenuItemStyles,
+  sliderContainerStyles,
+  sliderTrackStyles,
+  sliderThumbStyles
+} from './header.styles';
+import { useMode } from '../../context/context';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {isHardMode, toggleHardMode} = useMode();
   const location = useLocation();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <header style={headerStyles}>
@@ -30,6 +39,31 @@ const Header: React.FC = () => {
         >
           Your Facts
         </Link>
+      </div>
+      <div style={sliderContainerStyles}>
+        <div 
+          style={{ 
+            ...sliderTrackStyles,
+            backgroundColor: isHardMode ? '#ff4444' : '#ccc',
+          }}
+          onClick={toggleHardMode}
+        >
+          <div 
+            style={{ 
+              ...sliderThumbStyles,
+              transform: isHardMode ? 'translateX(20px)' : 'translateX(2px)'
+            }}
+          />
+        </div>
+        <span style={{ 
+          color: 'white', 
+          marginLeft: '8px', 
+          fontSize: '0.9rem',
+          minWidth: '85px', 
+          marginRight: '10px'
+        }}>
+          {isHardMode ? 'Hard Mode' : 'Normal Mode'}
+        </span>
       </div>
     </header>
   );

@@ -1,12 +1,13 @@
 import Router from './router/Router';
 import './App.css';
+import { ModeProvider } from './context/context';
 
 function App() {
 
   return (
-    <div>
+    <ModeProvider>
       <Router/>
-    </div>
+    </ModeProvider>
   );
 }
 

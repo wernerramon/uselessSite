@@ -1,51 +1,47 @@
 import express from 'express';
 import cors from 'cors';
-import axios from 'axios';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import factRoutes from './routes/factsRoute';
+import usersRoute from "./routes/usersRoute";
+
+console.log('Starting server...');
+
+dotenv.config();
+const PORT = 5001;
 
 const app = express();
-const port = 5001;
-
-const hostIp = "127.0.0.1";
-const url = `http://${hostIp}:11434/api/generate`;
-
-
-
-
-const examples = [
-    "A shrimp's heart is located in its head",
-    "Bananas are berries, but strawberries are not",
-    "Wombat poop is cube-shaped",
-    "A day on Venus is longer than a year on Venus",
-    "The inventor of the frisbee was turned into a frisbee after he died",
-];
-const prompt = "Generate a useless but true fact. Example: "
-    + examples[Math.floor(Math.random() * examples.length)]
-    + ".  Now generate ONE another useless but true fact:";
-
-
 app.use(cors());
 app.use(express.json());
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'Hello from Express!' });
-});
 
-// Route to get facts
-app.get('/fact', async (req, res) => {
-  try {
-    const ollamaResponse = await axios.post(url, {
-      model: 'mistral',
-      prompt: prompt,
-      stream: false
+const MONGODB_URI = process.env.MONGODB_URI || '';
+if (!MONGODB_URI) {
+  console.error('MongoDB connection URI missing!');
+  process.exit(1);
+}
+
+mongoose
+    .connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } as mongoose.ConnectOptions)
+    .then(() => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((error: Error) => {
+      console.error('MongoDB connection error:', error);
+      process.exit(1);
     });
-    console.log('Ollama response:', ollamaResponse.data);
-    res.json({ fact: ollamaResponse.data.response });
-  } catch (error) {
-    console.error('Error fetching fact from Ollama:', error);
-    res.status(500).json({ error: 'Error fetching the fact' });
-  }
+
+app.use('/fact', factRoutes);
+app.use('/user', usersRoute);
+app.use((req, res) => {
+  console.log('Route not found:', req.url);
+  res.status(500).json({ error: 'Internal Server Error' });
 });
 
-app.listen(port,'0.0.0.0', () => {
-  console.log(`Server running on http://0.0.0.0:${port}`);
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });

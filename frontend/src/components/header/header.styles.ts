@@ -43,3 +43,33 @@ export const menuItemStyles: CSSProperties = {
 export const activeMenuItemStyles: CSSProperties = {
   backgroundColor: '#ff4444',
 };
+
+export const sliderContainerStyles: CSSProperties = {
+  position: 'absolute',
+  right: '20px',
+  display: 'flex',
+  alignItems: 'center',
+  top: '50%',
+  transform: 'translateY(-50%)', // Vertically center
+};
+
+export const sliderTrackStyles: CSSProperties = {
+  position: 'relative',
+  width: '48px',
+  height: '24px',
+  borderRadius: '12px',
+  transition: 'all 0.3s ease',
+  cursor: 'pointer',
+};
+
+export const sliderThumbStyles: CSSProperties = {
+  position: 'absolute',
+  width: '20px',
+  height: '20px',
+  borderRadius: '50%',
+  backgroundColor: 'white',
+  top: '2px',
+  left: '2px',
+  transition: 'all 0.3s ease',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+};
