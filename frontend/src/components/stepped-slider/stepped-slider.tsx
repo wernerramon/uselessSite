@@ -11,10 +11,10 @@ interface SteppedSliderProps {
 }
 
 // Custom thumb component that forwards the ref and adds type="range" by casting extra props to any
-const CustomSliderThumb = forwardRef<HTMLSpanElement, any>(function CustomSliderThumb(
+const CustomSliderThumb = forwardRef<HTMLSpanElement, any>((
   props,
   ref
-) {
+) => {
   const { children, ...other } = props;
   return (
     <SliderThumb ref={ref} {...(other as any)} type="range">
@@ -23,22 +23,7 @@ const CustomSliderThumb = forwardRef<HTMLSpanElement, any>(function CustomSlider
   );
 });
 
-// Styled thumb component for custom appearance
-const StyledThumb = styled(CustomSliderThumb)(({ theme }) => ({
-  width: 30,
-  height: 30,
-  transform: "translate(-50%, -50%)",
-  // display: "flex",
-  // alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: "transparent",
-  borderRadius: "50%",
-  fontSize: "30px",
-  // fontWeight: "bold",
-}));
-
-// Helper to map slider value to a letter (for example, 0 -> "A", 1 -> "B", etc.)
-const getLetter = (value: number) => {
+const getEmoji = (value: number) => {
   const letters = ["🤓", "🤔", "🙃", "😑"];
   return letters[value] || "A";
 };
@@ -57,7 +42,7 @@ const SteppedSlider = ({ onChange, steps, value }: SteppedSliderProps) => {
     <Box sx={{ width: 300, padding: 3 }}>
       <Typography gutterBottom>Printing Mode</Typography>
       <Slider
-        style={styles.steppedSlider}
+        style={styles.baseStyle}
         value={sliderValue}
         onChange={handleChange}
         step={null} // Ensures only predefined values are selectable
@@ -68,9 +53,13 @@ const SteppedSlider = ({ onChange, steps, value }: SteppedSliderProps) => {
         size="medium"
         slots={{
           thumb: (props) => (
-            <StyledThumb {...props}>
-              {getLetter(sliderValue)}
-            </StyledThumb>
+            <CustomSliderThumb {...props} style={{
+              // merge MUI's inline styles with your custom style
+              ...props.style,
+              ...styles.thumbStyle,
+            }}>
+              {getEmoji(sliderValue)}
+            </CustomSliderThumb>
           ),
         }}
       />
