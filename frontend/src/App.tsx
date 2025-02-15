@@ -3,6 +3,7 @@ import CartoonButton from './components/button/button';
 import Popup from './components/popup/popup';
 import { getFact } from './service/factcall';
 import './App.css';
+import SteppedSlider from './components/stepped-slider/stepped-slider';
 
 function App() {
   const [showPopup, setShowPopup] = useState(false);
@@ -24,6 +25,13 @@ function App() {
     }
   };
 
+  const sliderMarks = [
+    {value: 0, label: "Test"},
+    {value: 1, label: "Test2"},
+    {value: 2, label: "Test3"},
+    {value: 3, label: "Test4"}
+  ]
+
   return (
     <div className="App">
       <header className="App-header">
@@ -34,6 +42,8 @@ function App() {
         >
           {loading ? 'Loading...' : 'Press Me!'}
         </CartoonButton>
+
+        <SteppedSlider marks={sliderMarks} value={0}></SteppedSlider>''
         
         {showPopup && (
           <Popup
