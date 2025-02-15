@@ -35,10 +35,29 @@ export const saveFact = async (fact: string) => {
   }
 };
 
-/**
- * Controller to generate a fact from an internal AI.
- * GET /fact
- */
+export const getFact = async (factId: number) => {
+    try {
+        const fact = await Fact.findOne({ id: factId });
+        return fact;
+    } catch (error) {
+        console.error('Error fetching fact:', error);
+        return;
+    }
+}
+
+export const getMaxFactId = async () => {
+    try {
+        const maxFact = await Fact.findOne().sort({ id: -1 });
+        if (!maxFact) {
+            return 0;
+        }
+        return maxFact.id;
+    } catch (error) {
+        console.error('Error fetching max fact id:', error);
+        return;
+    }
+}
+
 export const generateFact = async (req: Request, res: Response): Promise<void> => {
   try {
     console.log('Generating fact...');
@@ -50,18 +69,26 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
       user = await getUser(userId);
     }
 
-    const response = await axios.post(externalURL, {
-      model: 'mistral',
-      prompt: prompt,
-      stream: false,
-    });
-    console.log('External service response:', response.data);
-    const fact = await saveFact(response.data.response);
-    if (!fact) {
-        res.status(500).json({ error: 'Error saving the fact' });
+    const maxFactId = await getMaxFactId();
+    const randomFactId = Math.floor(Math.random() * maxFactId);
+    if (user.factIDs.includes(randomFactId)) {
+      const response = await axios.post(externalURL, {
+        model: 'mistral',
+        prompt: prompt,
+        stream: false,
+      });
+      console.log('External service response:', response.data);
+      const fact = await saveFact(response.data.response);
+      if (!fact) {
+        res.status(500).json({error: 'Error saving the fact'});
+      }
+      user = await updateUser(user.id, fact?.id);
+      res.status(200).json({fact: response.data.response, id: user.id});
+    } else {
+      const fact = await getFact(randomFactId);
+      user = await updateUser(user.id, fact!.id);
+      res.status(200).json({fact: fact!.fact, id: user.id});
     }
-    user = await updateUser(user.id, fact?.id);
-    res.status(200).json({ fact: response.data.response, id: user.id });
   } catch (error) {
     console.error('Error fetching fact from external service:', error);
     res.status(500).json({ error: 'Error fetching the fact' });
