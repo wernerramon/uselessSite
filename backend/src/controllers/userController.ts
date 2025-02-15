@@ -1,4 +1,6 @@
 import {IUser, User} from '../models/userModel';
+import {Request, Response} from "express";
+import {getFact} from "./factController";
 
 
 export const createUser = async (): Promise<any> => {
@@ -45,5 +47,29 @@ export const getUser = async (userId: number): Promise<any> => {
     } catch (error) {
         console.error('Error fetching user:', error);
         return;
+    }
+}
+
+export const getAllFactsUser = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = req.body.userId;
+        let user;
+        if (!userId) {
+            user = await createUser();
+        } else {
+            user = await getUser(userId);
+        }
+        const facts= [];
+        for (let i = 0; i < user.factIDs.length; i++) {
+            const fact = await getFact(user.factIDs[i]);
+            if (!fact){
+              continue;
+            }
+            facts.push(fact.fact);
+        }
+        res.status(200).json({facts: facts, id: user.id});
+    } catch (error) {
+        console.error('Error fetching all facts for user:', error);
+        res.status(500).json({error: 'Internal Server Error'});
     }
 }
