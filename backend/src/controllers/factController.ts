@@ -59,7 +59,7 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
         res.status(500).json({ error: 'Error saving the fact' });
     }
     user = await updateUser(user.id, fact?.id);
-    res.status(200).json({ fact: response.data.response });
+    res.status(200).json({ fact: response.data.response, id: user.id });
   } catch (error) {
     console.error('Error fetching fact from external service:', error);
     res.status(500).json({ error: 'Error fetching the fact' });
