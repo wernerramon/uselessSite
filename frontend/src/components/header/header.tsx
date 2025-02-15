@@ -4,7 +4,7 @@ import { headerStyles, hamburgerIconStyles, menuStyles, menuItemStyles, activeMe
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,24 +15,22 @@ const Header: React.FC = () => {
       <div style={hamburgerIconStyles} onClick={toggleMenu}>
         ☰
       </div>
-      {isMenuOpen && (
-        <div style={menuStyles}>
-          <Link
-            to="/"
-            style={location.pathname === '/' ? { ...menuItemStyles, ...activeMenuItemStyles } : menuItemStyles}
-            onClick={toggleMenu}
-          >
-            Generate Facts
-          </Link>
-          <Link
-            to="/facts"
-            style={location.pathname === '/facts' ? { ...menuItemStyles, ...activeMenuItemStyles } : menuItemStyles}
-            onClick={toggleMenu}
-          >
-            Your Facts
-          </Link>
-        </div>
-      )}
+      <div style={{ ...menuStyles, transform: isMenuOpen ? 'translateX(0)' : 'translateX(-100%)' }}>
+        <Link
+          to="/"
+          style={location.pathname === '/' ? { ...menuItemStyles, ...activeMenuItemStyles } : menuItemStyles}
+          onClick={toggleMenu}
+        >
+          Generate Facts
+        </Link>
+        <Link
+          to="/facts"
+          style={location.pathname === '/facts' ? { ...menuItemStyles, ...activeMenuItemStyles } : menuItemStyles}
+          onClick={toggleMenu}
+        >
+          Your Facts
+        </Link>
+      </div>
     </header>
   );
 };
