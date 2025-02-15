@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import CartoonButton from './components/button/button';
 import Popup from './components/popup/popup';
 import { getFact } from './service/factcall';
+import buttonSound from './assets/buttonPress.mp3';
+import notification from './assets/notification-sound.mp3';
 import './App.css';
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
         <CartoonButton 
           onClick={fetchFact}
           disabled={loading}
+          soundUrl={buttonSound}
         >
           {loading ? 'Loading...' : 'Press Me!'}
         </CartoonButton>
@@ -39,6 +42,8 @@ function App() {
           <Popup
             text={error || fact}
             onClose={() => setShowPopup(false)}
+            soundUrl={buttonSound}
+            openSound={notification}
           />
         )}
       </header>
