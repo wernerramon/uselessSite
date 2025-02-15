@@ -72,41 +72,64 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
   try {
     console.log('Generating fact...');
     const userId = req.body.userId;
-    const mode = req.body.mode;
+    let mode = req.body.mode;
     let user;
+
     if (!userId) {
       user = await createUser();
     } else {
       user = await getUser(userId);
     }
-    if (mode < 0 || mode > 3 || mode === undefined) {
-      res.status(400).json({error: 'Invalid mode'});
-    }
-    const modeFacts = await getFactsFromMode(mode);
-    const randomFactIndex = Math.floor(Math.random() * modeFacts!.length);
-    if (user.factIDs.includes(modeFacts![randomFactIndex].id)) {
-      console.log('User already has fact with id:', modeFacts![randomFactIndex].id);
 
+    if (mode < 0 || mode > 3 || mode === undefined) {
+      mode = 0;
+    }
+
+    let modeFacts = await getFactsFromMode(mode);
+
+    if (!modeFacts || modeFacts.length === 0) {
+      console.log(`No facts found for mode ${mode}. Generating new fact...`);
       const response = await axios.post(externalURL, {
         model: 'mistral',
         prompt: prompt,
         stream: false,
       });
-
       console.log('External service response:', response.data);
       const fact = await saveFact(response.data.response, mode);
       if (!fact) {
-        res.status(500).json({error: 'Error saving the fact'});
+        res.status(500).json({ error: 'Error saving the fact' });
+        return;
       }
       user = await updateUser(user.id, fact?.id);
-      res.status(200).json({fact: response.data.response, id: user.id});
+      res.status(200).json({ fact: response.data.response, id: user.id });
+      return;
+    }
+
+    const randomFactIndex = Math.floor(Math.random() * modeFacts.length);
+    const selectedFact = modeFacts[randomFactIndex];
+
+    if (user.factIDs.includes(selectedFact.id)) {
+      console.log('User already has fact with id:', selectedFact.id);
+      const response = await axios.post(externalURL, {
+        model: 'mistral',
+        prompt: prompt,
+        stream: false,
+      });
+      console.log('External service response:', response.data);
+      const fact = await saveFact(response.data.response, mode);
+      if (!fact) {
+        res.status(500).json({ error: 'Error saving the fact' });
+        return;
+      }
+      user = await updateUser(user.id, fact?.id);
+      res.status(200).json({ fact: response.data.response, id: user.id });
     } else {
-      console.log('User hasnt save the fact with id:', modeFacts![randomFactIndex].id);
-      const fact = await getFact(modeFacts![randomFactIndex].id);
+      console.log('User has not saved the fact with id:', selectedFact.id);
+      const fact = await getFact(selectedFact.id);
       console.log('Fact from DB:', fact);
       console.log('User:', user);
       user = await updateUser(user.id, fact!.id);
-      res.status(200).json({fact: fact!.fact, id: user.id});
+      res.status(200).json({ fact: fact!.fact, id: user.id });
     }
   } catch (error) {
     console.error('Error fetching fact from external service:', error);
