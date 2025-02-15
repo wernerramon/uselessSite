@@ -4,6 +4,9 @@ import axios from 'axios';
 
 const app = express();
 const port = 5001;
+const hostIp = "172.17.0.1"; // passe diese IP an
+const url = `http://${hostIp}:11434/api/generate`;
+
 
 const examples = [
     "A shrimp's heart is located in its head",
@@ -27,7 +30,7 @@ app.get('/api', (req, res) => {
 // Route to get facts
 app.get('/fact', async (req, res) => {
   try {
-    const ollamaResponse = await axios.post('http://host.docker.internal:11434/api/generate', {
+    const ollamaResponse = await axios.post(url, {
       model: 'mistral',
       prompt: prompt,
       stream: false
