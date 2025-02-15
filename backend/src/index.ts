@@ -4,7 +4,8 @@ import axios from 'axios';
 
 const app = express();
 const port = 5001;
-const hostIp = "0.0.0.0";
+
+const hostIp = "host.docker.internal";
 const url = `http://${hostIp}:11434/api/generate`;
 
 
