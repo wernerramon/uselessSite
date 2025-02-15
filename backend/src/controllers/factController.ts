@@ -72,6 +72,7 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
     const maxFactId = await getMaxFactId();
     const randomFactId = Math.floor(Math.random() * maxFactId);
     if (user.factIDs.includes(randomFactId)) {
+      console.log('User already has fact with id:', randomFactId);
       const response = await axios.post(externalURL, {
         model: 'mistral',
         prompt: prompt,
@@ -85,6 +86,7 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
       user = await updateUser(user.id, fact?.id);
       res.status(200).json({fact: response.data.response, id: user.id});
     } else {
+      console.log('User hasnt save the fact with id:', randomFactId);
       const fact = await getFact(randomFactId);
       console.log('Fact from DB:', fact);
       console.log('User:', user);
