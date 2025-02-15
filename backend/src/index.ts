@@ -21,7 +21,7 @@ if (!MONGODB_URI) {
 }
 
 mongoose
-    .connect(MONGODB_URI, {
+    .connect(MONGODB_URI+'/facts', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     } as mongoose.ConnectOptions)
