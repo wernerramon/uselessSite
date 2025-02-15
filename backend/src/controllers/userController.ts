@@ -65,7 +65,7 @@ export const getAllFactsUser = async (req: Request, res: Response): Promise<void
             if (!fact){
               continue;
             }
-            facts.push(fact.fact);
+            facts.push(fact.fact, fact.mode);
         }
         res.status(200).json({facts: facts, id: user.id});
     } catch (error) {
