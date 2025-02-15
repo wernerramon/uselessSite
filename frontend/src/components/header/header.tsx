@@ -10,14 +10,14 @@ import {
   sliderTrackStyles,
   sliderThumbStyles
 } from './header.styles';
+import { useMode } from '../../context/context';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isHardMode, setIsHardMode] = useState(false);
+  const {isHardMode, toggleHardMode} = useMode();
   const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleHardMode = () => setIsHardMode(!isHardMode);
 
   return (
     <header style={headerStyles}>
