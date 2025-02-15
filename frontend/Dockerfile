@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm install --force
 
 COPY . .
-RUN npm run start
+RUN npm run build
 
 FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
