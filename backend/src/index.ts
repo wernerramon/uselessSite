@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const app = express();
 const port = 5001;
-const hostIp = "172.17.0.1"; // passe diese IP an
+const hostIp = "0.0.0.0";
 const url = `http://${hostIp}:11434/api/generate`;
 
 
