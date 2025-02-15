@@ -86,6 +86,8 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
       res.status(200).json({fact: response.data.response, id: user.id});
     } else {
       const fact = await getFact(randomFactId);
+      console.log('Fact from DB:', fact);
+      console.log('User:', user);
       user = await updateUser(user.id, fact!.id);
       res.status(200).json({fact: fact!.fact, id: user.id});
     }
