@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import { Fact } from '../models/factsModel';
-import {createUser, updateUser} from "./userController";
+import {createUser, getUser, updateUser} from "./userController";
 
 // External service configuration
 const externalHostIP = '127.0.0.1';
@@ -46,6 +46,8 @@ export const generateFact = async (req: Request, res: Response): Promise<void> =
     let user;
     if (!userId) {
       user = await createUser();
+    } else {
+      user = await getUser(userId);
     }
 
     const response = await axios.post(externalURL, {

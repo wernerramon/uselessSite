@@ -37,3 +37,13 @@ export const updateUser = async (userId: number, factId: number): Promise<any> =
     return;
   }
 };
+
+export const getUser = async (userId: number): Promise<any> => {
+    try {
+        const user = await User.findOne({ id: userId });
+        return user;
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        return;
+    }
+}
