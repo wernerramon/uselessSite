@@ -30,11 +30,23 @@ const HomePage = () => {
     }
   };
 
-  const sliderMarks = [
-    {value: 0, label: "Test0"},
-    {value: 1, label: "Test1"},
-    {value: 2, label: "Test2"},
-    {value: 3, label: "Test3"},
+  const sliderSteps = [
+    {
+      mark: {value: 0, label: "Test0"},
+      emoji: "😑"
+    },
+    {
+      mark: {value: 1, label: "Test0"},
+      emoji: "😑"
+    },
+    {
+      mark: {value: 2, label: "Test0"},
+      emoji: "😑"
+    },
+    {
+      mark: {value: 3, label: "Test0"},
+      emoji: "😑"
+    },
   ]
 
   return (
@@ -50,7 +62,7 @@ const HomePage = () => {
         </CartoonButton>
 
         <SteppedSlider
-          marks={sliderMarks}
+          steps={sliderSteps}
           value={0}
         ></SteppedSlider>
           
