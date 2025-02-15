@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import { Fact } from '../models/factsModel';
+import {createUser, updateUser} from "./userController";
 
 // External service configuration
 const externalHostIP = '127.0.0.1';
@@ -24,13 +25,13 @@ const prompt: string =
 
 export const saveFact = async (fact: string) => {
   try {
-
-
     // Create a new Fact document and save it to the DB
     const newFact = new Fact({ fact });
     const savedFact = await newFact.save();
+    return savedFact;
   } catch (error) {
     console.error('Error creating fact:', error);
+    return;
   }
 };
 
@@ -41,13 +42,23 @@ export const saveFact = async (fact: string) => {
 export const generateFact = async (req: Request, res: Response): Promise<void> => {
   try {
     console.log('Generating fact...');
+    const userId = req.body.userId;
+    let user;
+    if (!userId) {
+      user = await createUser();
+    }
+
     const response = await axios.post(externalURL, {
       model: 'mistral',
       prompt: prompt,
       stream: false,
     });
     console.log('External service response:', response.data);
-    await saveFact(response.data.response);
+    const fact = await saveFact(response.data.response);
+    if (!fact) {
+        res.status(500).json({ error: 'Error saving the fact' });
+    }
+    user = await updateUser(user.id, fact?.id);
     res.status(200).json({ fact: response.data.response });
   } catch (error) {
     console.error('Error fetching fact from external service:', error);

@@ -23,6 +23,6 @@ const FactSchema: Schema<IFact> = new Schema(
     }
 );
 
-FactSchema.plugin(AutoIncrement, { inc_field: 'id' });
+FactSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'fact_seq' });
 
 export const Fact = mongoose.model<IFact>('Fact', FactSchema);
