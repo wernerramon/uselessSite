@@ -10,19 +10,20 @@ interface SteppedSliderProps {
   value: number;
 }
 
+interface EmojiSliderThumbProps extends React.HTMLAttributes<unknown> {}
+
 // Custom thumb component that forwards the ref and adds type="range" by casting extra props to any
 // This avoids any runtime errors due to the custom thumb
-const EmojiSliderThumb = forwardRef<HTMLSpanElement, any>((
-  props,
-  ref
+const EmojiSliderThumb = (
+  props: EmojiSliderThumbProps
 ) => {
   const { children, ...other } = props;
   return (
-    <SliderThumb ref={ref} {...(other as any)} type="range">
+    <SliderThumb {...(other as any)} type="range">
       {children}
     </SliderThumb>
   );
-});
+};
 
 const SteppedSlider = ({ onChange, steps, value }: SteppedSliderProps) => {
   const [sliderValue, setSliderValue] = useState(value);
