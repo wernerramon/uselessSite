@@ -23,7 +23,7 @@ echo "# Rebuild backend"
 echo "###############################"
 cd backend
 docker build -t useless-site-backend .
-docker run -d --network host useless-site-backend
+docker run -d --name useless-site-backend --network host useless-site-backend
 cd ..
 
 echo "###############################"
