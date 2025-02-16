@@ -31,7 +31,7 @@ echo "# Rebuild frontend"
 echo "###############################"
 cd frontend
 docker build -t frontend .
-docker run -d -p 80:80 frontend
+docker run -d -p 8080:80 frontend
 
 cd ..
 
