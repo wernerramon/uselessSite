@@ -46,17 +46,17 @@ const examples3: string[] = [
 const generatePrompt = (mode: number): string => {
     switch (mode) {
         case 0:
-        return "Give me ONE useless but true fact. Example: " +
+        return "Give me exactly ONE sentence, without any list or numbering, that is an useless but true fact. Example: " +
             examples0[Math.floor(Math.random() * examples0.length)] +
             ". Now give me ONE other useless but true fact:";
         case 1:
-        return "Give me ONE mildly useless but true fact. Example: " +
+        return "Give me exactly ONE sentence, without any list or numbering, that is mildly useless but true fact. Example: " +
             examples1[Math.floor(Math.random() * examples1.length)] +
             ". Now generate ONE other mildly useless but true fact:";
         case 2:
-        return "Give me ONE useless and nonsensical but true fact. Example: " +
+        return "Give me exactly ONE sentence, without any list or numbering, that is useless and nonsensical but true fact. Example: " +
             examples2[Math.floor(Math.random() * examples2.length)] +
-            ". Return ONE other very useless nonsensical but true fact";
+            ". Return ONE other very useless nonsensical but true fact:";
         case 3:
         return "Give me exactly ONE sentence, without any list or numbering, that states an obvious truth (avoid common clichés like water-related facts). Do not include any additional sentences or explanations. Example:  " +
             examples3[Math.floor(Math.random() * examples3.length)] +
