@@ -1,29 +1,34 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-export async function getFact(): Promise<string> {
+export async function getFact(mode?: number): Promise<string> {
     const apiUrl = process.env.REACT_APP_FACT_API;
     const userID = Cookies.get('userID');
     if (!apiUrl) {
       throw new Error('FACT_API environment variable is not defined');
     }
-  
+
     try {
       if (userID) {
         const body = {
-          userId: userID
+          userId: userID,
+          mode
         }
         const response = await axios({
           method: 'POST',
           url: apiUrl,
-          data:body
+          data: body
         });
         const data = await response.data;
         return data.fact;
       } else {
+        const body = {
+          mode
+        }
         const response = await axios({
           method: 'POST',
           url: apiUrl,
+          data: body
         });
         const data = await response.data;
         Cookies.set('userID', data.id, { expires: 7 });

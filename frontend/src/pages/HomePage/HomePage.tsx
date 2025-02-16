@@ -67,11 +67,13 @@ const HomePage = () => {
     return { x: 0, y: 0 };
   };
 
+  const [sliderValue, setSliderValue] = useState(0);
+
   const fetchFact = async () => {
     setLoading(true);
     setError(null);
     try {
-      const result = await getFact();
+      const result = await getFact(sliderValue);
       setFact(result);
       setShowPopup(true);
     } catch (err) {
@@ -128,6 +130,7 @@ const HomePage = () => {
         <SteppedSlider
           steps={sliderSteps}
           value={0}
+          onChange={(sliderValue) => setSliderValue(sliderValue)}
         />
         {showPopup && (
           <Popup
