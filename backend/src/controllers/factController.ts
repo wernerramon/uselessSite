@@ -58,7 +58,7 @@ const generatePrompt = (mode: number): string => {
             examples2[Math.floor(Math.random() * examples2.length)] +
             ". Return ONE other very useless nonsensical but true fact";
         case 3:
-        return "Give me ONE fact without explanation that is obviously the truth. It can be very obviosly but avoid common clichés like water-related facts Example: " +
+        return "Give me exactly ONE sentence, without any list or numbering, that states an obvious truth (avoid common clichés like water-related facts). Do not include any additional sentences or explanations. Example:  " +
             examples3[Math.floor(Math.random() * examples3.length)] +
             ".Now give me ONE other obviously but true fact:";
         default:
