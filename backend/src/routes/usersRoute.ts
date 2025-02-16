@@ -3,7 +3,7 @@ import {getAllFactsUser, deleteFactForUser} from "../controllers/userController"
 
 const router = Router();
 
-router.get('/facts', getAllFactsUser);
+router.post('/facts', getAllFactsUser);
 
 router.delete('/fact',deleteFactForUser);
 
