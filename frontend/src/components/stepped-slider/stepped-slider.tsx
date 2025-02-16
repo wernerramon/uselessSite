@@ -35,7 +35,7 @@ const SteppedSlider = ({ onChange, steps, value }: SteppedSliderProps) => {
   };
 
   return (
-    <Box sx={{ width: 400, padding: 3 }}>
+    <Box sx={styles.boxStyle}>
       <Slider
         style={styles.baseStyle}
         value={sliderValue}
