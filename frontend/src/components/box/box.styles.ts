@@ -7,6 +7,7 @@ export const cartoonBrowserBoxStyles: CSSProperties = {
   width: '80%',
   margin: '10px auto',
   boxShadow: '5px 5px 0px #000',
+  minWidth: '700px'
 };
 
 export const browserHeaderStyles: CSSProperties = {
@@ -15,8 +16,8 @@ export const browserHeaderStyles: CSSProperties = {
   borderBottom: '2px solid #000',
   display: 'flex',
   alignItems: 'center',
-  position: 'relative', // For absolute positioning of the label
-  height: '40px' // Give consistent height
+  position: 'relative', 
+  height: '40px'
 };
 
 export const browserButtonsStyles: CSSProperties = {
