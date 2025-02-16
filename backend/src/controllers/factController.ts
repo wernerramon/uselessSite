@@ -8,19 +8,65 @@ const externalHostIP = '127.0.0.1';
 const externalURL = `http://${externalHostIP}:11434/api/generate`;
 
 // Examples used for prompt generation
-const examples: string[] = [
-  "A shrimp's heart is located in its head",
-  "Bananas are berries, but strawberries are not",
-  "Wombat poop is cube-shaped",
-  "A day on Venus is longer than a year on Venus",
-  "The inventor of the frisbee was turned into a frisbee after he died",
+const examples0: string[] = [
+  "The probability of toast landing butter-side down seems almost magical.",
+  "Old clocks sometimes tick to their own beat.",
+  "Coffee stains can accidentally resemble modern art.",
+  "Raindrops occasionally perform a spontaneous concert.",
+  "Some plants appear to grow in a secret, rhythmic pattern."
 ];
 
-// Generate a prompt using one random example
-const prompt: string =
-    "Generate a useless but true fact. Example: " +
-    examples[Math.floor(Math.random() * examples.length)] +
-    ". Now generate ONE another useless but true fact:";
+const examples1: string[] = [
+  "A standard ballpoint pen contains about 0.5 milliliters of ink.",
+  "Most cars have four tires, regardless of the make or model.",
+  "A typical refrigerator maintains an interior temperature of around 4°C (39°F).",
+  "A computer's boot-up time is usually under a minute.",
+  "A standard keyboard generally has around 104 keys.",
+];
+
+const examples2: string[] = [
+  "Sometimes trees whisper secrets when the wind blows in reverse.",
+  "Invisible elephants are said to dance through the city streets at night.",
+  "A cookie might recount the tales of forgotten tea parties.",
+  "The shadows of clouds seem to compete for the sun's attention.",
+  "If dreams had colors, even the rainbow might feel envious."
+];
+
+const examples3: string[] = [
+  "1 + 1 = 2",
+  "Water is wet.",
+  "Fire burns.",
+  "The sky is blue.",
+  "The Earth orbits the sun.",
+];
+
+
+
+
+const generatePrompt = (mode: number): string => {
+    switch (mode) {
+        case 0:
+        return "Generate a useless but true fact. Example: " +
+            examples0[Math.floor(Math.random() * examples0.length)] +
+            ". Now generate ONE another useless but true fact:";
+        case 1:
+        return "Generate a useless but true fact. Example: " +
+            examples1[Math.floor(Math.random() * examples1.length)] +
+            ". Now generate ONE another useless but true fact:";
+        case 2:
+        return "Generate a useless but true fact. Example: " +
+            examples2[Math.floor(Math.random() * examples2.length)] +
+            ". Now generate ONE another useless but true fact";
+        case 3:
+        return "Generate a useless but true fact. Example: " +
+            examples3[Math.floor(Math.random() * examples3.length)] +
+            ". Now generate ONE another useless but true fact:";
+        default:
+        return "Generate a useless but true fact. Example: " +
+            examples0[Math.floor(Math.random() * examples0.length)] +
+            ". Now generate ONE another useless but true fact:";
+    }
+}
 
 
 export const saveFact = async (fact: string, mode: number) => {
@@ -69,9 +115,11 @@ export const getMaxFactId = async () => {
 }
 
 const generateNewFact = async (user: any, mode: number, res: Response): Promise<void> => {
+
+  const promtToUse = generatePrompt(mode);
   const externalResponse = await axios.post(externalURL, {
     model: 'mistral',
-    prompt: prompt,
+    prompt: promtToUse,
     stream: false,
   });
   console.log('External service response:', externalResponse.data);
