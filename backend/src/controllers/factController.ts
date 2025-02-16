@@ -54,11 +54,11 @@ const generatePrompt = (mode: number): string => {
             examples1[Math.floor(Math.random() * examples1.length)] +
             ". Now generate ONE other mildly useless but true fact:";
         case 2:
-        return "Give me a very useless nonsensical but true fact. Example: " +
+        return "Give me an useless and nonsensical but true fact. Example: " +
             examples2[Math.floor(Math.random() * examples2.length)] +
             ". Return ONE other very useless nonsensical but true fact";
         case 3:
-        return "Give me a fact that is obviously the truth. Example: " +
+        return "Give me a fact that is obviously the truth. It can be very obviosly and avoid common clichés like water-related facts Example: " +
             examples3[Math.floor(Math.random() * examples3.length)] +
             ".Now give me ONE other very very very obviously but true fact:";
         default:
