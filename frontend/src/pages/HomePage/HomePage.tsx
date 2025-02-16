@@ -125,6 +125,10 @@ const HomePage = () => {
           {loading ? 'Loading...' : 'Press Me!'}
         </CartoonButton>
         </div>
+        <SteppedSlider
+          steps={sliderSteps}
+          value={0}
+        />
         {showPopup && (
           <Popup
             text={error || fact}
