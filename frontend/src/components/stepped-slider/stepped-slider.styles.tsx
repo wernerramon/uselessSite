@@ -11,5 +11,16 @@ export const styles: { [key: string]: React.CSSProperties} = {
         backgroundColor: "transparent",
         borderRadius: "50%",
         fontSize: "30px",
+    },
+    markStyle: {
+        width: 8, // Adjust the mark size
+        height: 8,
+        borderRadius: "50%",
+        backgroundColor: "#ff4444", // Red color for marks
+    },
+    labelStyle: {
+        fontWeight: "bold",
+        fontStyle: "italic",
+        fontSize: 24
     }
 }

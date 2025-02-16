@@ -32,20 +32,24 @@ const HomePage = () => {
 
   const sliderSteps = [
     {
-      mark: {value: 0, label: "Test0"},
-      emoji: "😑"
+      mark: {value: 0},
+      emoji: "🤓",
+      label: "Quirky Tidbits"
     },
     {
-      mark: {value: 1, label: "Test0"},
-      emoji: "😑"
+      mark: {value: 1},
+      emoji: "🤔",
+      label: "Mildly Useless"
     },
     {
-      mark: {value: 2, label: "Test0"},
-      emoji: "😑"
+      mark: {value: 2},
+      emoji: "🙃",
+      label: "Nonsensical Nugget"
     },
     {
-      mark: {value: 3, label: "Test0"},
-      emoji: "😑"
+      mark: {value: 3},
+      emoji: "😑",
+      label: "Obvious truth"
     },
   ]
 
