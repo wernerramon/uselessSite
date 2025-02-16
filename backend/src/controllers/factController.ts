@@ -46,21 +46,21 @@ const examples3: string[] = [
 const generatePrompt = (mode: number): string => {
     switch (mode) {
         case 0:
-        return "Generate a useless but true fact. Example: " +
+        return "Give me a useless but true fact. Example: " +
             examples0[Math.floor(Math.random() * examples0.length)] +
-            ". Now generate ONE another useless but true fact:";
+            ". Now give me ONE other useless but true fact:";
         case 1:
-        return "Generate a useless but true fact. Example: " +
+        return "Generate a mildly useless but true fact. Example: " +
             examples1[Math.floor(Math.random() * examples1.length)] +
-            ". Now generate ONE another useless but true fact:";
+            ". Now generate ONE other mildly useless but true fact:";
         case 2:
-        return "Generate a useless but true fact. Example: " +
+        return "Give me a very useless but true fact. Example: " +
             examples2[Math.floor(Math.random() * examples2.length)] +
-            ". Now generate ONE another useless but true fact";
+            ". Return ONE other very useless but true fact";
         case 3:
-        return "Generate a useless but true fact. Example: " +
+        return "Give me a very very very useless but true fact. Example: " +
             examples3[Math.floor(Math.random() * examples3.length)] +
-            ". Now generate ONE another useless but true fact:";
+            ".Now give me ONE other very very very useless but true fact:";
         default:
         return "Generate a useless but true fact. Example: " +
             examples0[Math.floor(Math.random() * examples0.length)] +
