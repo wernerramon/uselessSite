@@ -71,8 +71,8 @@ export const getMaxFactId = async () => {
 export const generateFact = async (req: Request, res: Response): Promise<void> => {
   try {
     console.log('Generating fact...');
-    const userId = req.body.userId;
-    let mode = req.body.mode;
+    const userId = req.body.userId as number;
+    let mode = req.body.mode as number;
     let user;
 
     if (!userId) {

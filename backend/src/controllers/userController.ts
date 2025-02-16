@@ -52,7 +52,7 @@ export const getUser = async (userId: number): Promise<any> => {
 
 export const getAllFactsUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId = req.body.userId;
+        const userId = req.body.userId as number;
         let user;
         if (!userId) {
             user = await createUser();
@@ -70,6 +70,29 @@ export const getAllFactsUser = async (req: Request, res: Response): Promise<void
         res.status(200).json({facts: facts, id: user.id});
     } catch (error) {
         console.error('Error fetching all facts for user:', error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+}
+
+export const deleteFactForUser = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = req.body.userId;
+        const factId = req.body.factId;
+        const user = await getUser(userId);
+        if (!user) {
+            res.status(404).json({error: 'User not found'});
+            return;
+        }
+        const index = user.factIDs.indexOf(factId);
+        if (index === -1) {
+            res.status(404).json({error: 'Fact not found for user'});
+            return;
+        }
+        user.factIDs.splice(index, 1);
+        await user.save();
+        res.status(200).json({message: 'Fact deleted for user'});
+    } catch (error) {
+        console.error('Error deleting fact for user:', error);
         res.status(500).json({error: 'Internal Server Error'});
     }
 }

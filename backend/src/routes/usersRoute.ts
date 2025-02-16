@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import {getAllFactsUser} from "../controllers/userController";
+import {getAllFactsUser, deleteFactForUser} from "../controllers/userController";
 
 const router = Router();
 
 router.get('/facts', getAllFactsUser);
+
+router.delete('/fact',deleteFactForUser);
 
 export default router;
