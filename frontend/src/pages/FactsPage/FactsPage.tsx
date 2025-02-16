@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import CartoonBrowserBox from '../../components/box/box';
 import { factsPageStyles, factsListStyles, appHeaderStyles } from './FactsPage.styles';
+import { getAllFacts } from '../../service/factcall';
 
 const FactsPage = () => {
     const facts: string[] = ["Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself.",
@@ -9,12 +10,36 @@ const FactsPage = () => {
         "Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself.",
         "Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself."
     ]; // replace with call to BE to get facts
+
+    const [allFacts, setAllFacts] = useState<string[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const fetchAllFact = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const result = await getAllFacts();
+          console.log("result: ", result)
+          if (result) {
+            setAllFacts(result);
+          } else {
+            setAllFacts(["No facts available."])
+          }
+        } catch (err) {
+          setError(err instanceof Error ? err.message : 'Failed to fetch fact');
+        } finally {
+          setLoading(false);
+        }
+      };
+    useEffect(() => {
+       fetchAllFact();
+      }, []);
   return (
     <div style={factsPageStyles}>
         <header style={appHeaderStyles}>
       <h1>Your Facts</h1>
       <div style={factsListStyles}>
-        {facts.map((fact, index) => (
+        {!loading && allFacts.map((fact, index) => (
           <CartoonBrowserBox key={index} fact={fact} />
         ))}
       </div>
