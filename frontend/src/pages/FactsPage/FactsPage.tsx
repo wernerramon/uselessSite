@@ -20,7 +20,11 @@ const FactsPage = () => {
         try {
           const result = await getAllFacts();
           console.log("result: ", result)
-          setAllFacts(result);
+          if (result) {
+            setAllFacts(result);
+          } else {
+            setAllFacts(["No facts available."])
+          }
         } catch (err) {
           setError(err instanceof Error ? err.message : 'Failed to fetch fact');
         } finally {

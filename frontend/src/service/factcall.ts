@@ -4,7 +4,6 @@ import axios from 'axios';
 export async function getFact(): Promise<string> {
     const apiUrl = process.env.REACT_APP_FACT_API;
     const userID = Cookies.get('userID');
-    
     if (!apiUrl) {
       throw new Error('FACT_API environment variable is not defined');
     }
@@ -15,20 +14,17 @@ export async function getFact(): Promise<string> {
           userId: userID
         }
         const response = await axios({
-          method: 'GET',
+          method: 'POST',
           url: apiUrl,
-          data: JSON.stringify(body)
+          data:body
         });
-        
         const data = await response.data;
-        Cookies.set('userID', data.id, { expires: 7 });
         return data.fact;
       } else {
         const response = await axios({
-          method: 'GET',
+          method: 'POST',
           url: apiUrl,
         });
-        
         const data = await response.data;
         Cookies.set('userID', data.id, { expires: 7 });
         return data.fact;
@@ -40,10 +36,9 @@ export async function getFact(): Promise<string> {
   }
 
 export async function getAllFacts(): Promise<string[]> {
-  const apiUrl = process.env.REACT_APP_ALL_FACT_API;
+  const apiUrlALL = process.env.REACT_APP_ALL_FACT_API;
   const userID = Cookies.get('userID');
-  console.log("userId all facts: ", userID);
-  if (!apiUrl || !userID) {
+  if (!apiUrlALL || !userID) {
     console.log("error api url or userID")
     throw new Error('FACT_API environment variable is not defined');
   }
@@ -52,18 +47,13 @@ export async function getAllFacts(): Promise<string[]> {
     const body = {
       userId: userID
     }
-    console.log("body: ", body)
     const response = await axios({
-      method: 'GET',
-      url: apiUrl,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: JSON.stringify(body)
+      method: 'POST',
+      url: apiUrlALL,
+      data:body
     });
-    const data = await response.data;
-    console.log("facts: ", data.fact);
-    return data.fact;
+    const data: string[] = await response.data.facts;
+    return data.filter((_, index) => index % 2 === 0);
   } catch (error) {
     console.error('Error fetching all fact:', error);
     throw error;
