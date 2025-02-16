@@ -117,6 +117,7 @@ export const getMaxFactId = async () => {
 const generateNewFact = async (user: any, mode: number, res: Response): Promise<void> => {
 
   const promtToUse = generatePrompt(mode);
+  console.log('Prompt:', promtToUse);
   const externalResponse = await axios.post(externalURL, {
     model: 'mistral',
     prompt: promtToUse,
