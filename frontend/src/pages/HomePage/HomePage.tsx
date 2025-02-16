@@ -9,6 +9,7 @@ import { appStyles,
   appHeaderStyles
 } from './HomePage.styles';
 import { useMode } from '../../context/context';
+import SteppedSlider from '../../components/stepped-slider/stepped-slider';
 
 const HomePage = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -81,6 +82,28 @@ const HomePage = () => {
   };
 
   const { x, y } = calculateButtonPosition();
+  const sliderSteps = [
+    {
+      mark: {value: 0},
+      emoji: "🤓",
+      label: "Quirky Tidbits"
+    },
+    {
+      mark: {value: 1},
+      emoji: "🤔",
+      label: "Mildly Useless"
+    },
+    {
+      mark: {value: 2},
+      emoji: "🙃",
+      label: "Nonsensical Nugget"
+    },
+    {
+      mark: {value: 3},
+      emoji: "😑",
+      label: "Obvious truth"
+    },
+  ]
 
   return (
     <div style={appStyles}>
@@ -102,6 +125,10 @@ const HomePage = () => {
           {loading ? 'Loading...' : 'Press Me!'}
         </CartoonButton>
         </div>
+        <SteppedSlider
+          steps={sliderSteps}
+          value={0}
+        />
         {showPopup && (
           <Popup
             text={error || fact}

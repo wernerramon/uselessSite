@@ -3,6 +3,6 @@ import { generateFact } from '../controllers/factController';
 
 const router = Router();
 
-router.get('/', generateFact);
+router.post('/', generateFact);
 
 export default router;
