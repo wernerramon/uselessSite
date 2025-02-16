@@ -2,6 +2,7 @@ import { CSSProperties } from 'react';
 
 export const factsPageStyles: CSSProperties = {
     textAlign: 'center',
+    marginTop: '10px',
   };
   
   export const factsListStyles: CSSProperties = {
