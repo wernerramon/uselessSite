@@ -14,7 +14,9 @@ export const browserHeaderStyles: CSSProperties = {
   padding: '5px',
   borderBottom: '2px solid #000',
   display: 'flex',
-  justifyContent: 'flex-start',
+  alignItems: 'center',
+  position: 'relative', // For absolute positioning of the label
+  height: '40px' // Give consistent height
 };
 
 export const browserButtonsStyles: CSSProperties = {
@@ -23,10 +25,18 @@ export const browserButtonsStyles: CSSProperties = {
 };
 
 export const browserButtonStyles: CSSProperties = {
-  width: '12px',
-  height: '12px',
+  width: '20px',
+  height: '20px',
   borderRadius: '50%',
   border: '2px solid #000',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  fontSize: '16px',
+  lineHeight: '1',
+  padding: 0,
+  color: 'black'
 };
 
 export const browserButtonCloseStyles: CSSProperties = {

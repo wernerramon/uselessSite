@@ -44,7 +44,6 @@ export async function getAllFacts(): Promise<string[]> {
   const apiUrlALL = process.env.REACT_APP_ALL_FACT_API;
   const userID = Cookies.get('userID');
   if (!apiUrlALL || !userID) {
-    console.log("error api url or userID")
     throw new Error('FACT_API environment variable is not defined');
   }
 
@@ -57,10 +56,35 @@ export async function getAllFacts(): Promise<string[]> {
       url: apiUrlALL,
       data:body
     });
-    const data: string[] = await response.data.facts;
-    return data.filter((_, index) => index % 2 === 0);
+    return await response.data.facts;
   } catch (error) {
-    console.error('Error fetching all fact:', error);
+    console.error('Error fetching all facts:', error);
+    throw error;
+  }
+}
+
+export async function deleteFactUser(factId: number) {
+  const apiUrlDelete = process.env.REACT_APP_DELETE_FACT_API;
+  const userID = Cookies.get('userID');
+
+  if (!apiUrlDelete || !userID || !factId) {
+    throw new Error('FACT_API environment variable is not defined');
+  }
+
+  try {
+    const body = {
+      factId: factId,
+      userId: userID
+    }
+    const response = await axios({
+      method: 'DELETE',
+      url: apiUrlDelete,
+      data:body
+    });
+    console.log("deleted fact");
+    return await response.data
+  } catch (error) {
+    console.error('Error deleting fact from user:', error);
     throw error;
   }
 }

@@ -3,27 +3,54 @@ import CartoonBrowserBox from '../../components/box/box';
 import { factsPageStyles, factsListStyles, appHeaderStyles } from './FactsPage.styles';
 import { getAllFacts } from '../../service/factcall';
 
-const FactsPage = () => {
-    const facts: string[] = ["Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself.",
-        "Octopuses have three hearts. Two pump blood to the gills, while the third pumps it to the rest of the body. This third heart is only used when the octopus is swimming, as its blood can also flow through the body without it by using the pressure of the water.",
-        "Monkeys do not live in snow; they are found only in tropical and subtropical regions of the world, so it's a fact that monkeys never play in a winter wonderland.",
-        "Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself.",
-        "Octopuses have three hearts, two pump blood to the gills and the rest of the body, while the third circulates blood within the heart itself."
-    ]; // replace with call to BE to get facts
+interface IFact {
+  fact: string;
+  mode: number;
+  factId: number;
+}
 
-    const [allFacts, setAllFacts] = useState<string[]>([]);
+const FactsPage = () => {
+    const [allFacts, setAllFacts] = useState<IFact[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [reload, setReload] = useState<boolean>(false);
+
+    const transformArray = (arr: (string | number)[]): IFact[] => {
+      const result: IFact[] = [];
+      
+      for (let i = 0; i < arr.length; i += 3) {
+        const fact = arr[i];
+        const mode = arr[i + 1];
+        const id = arr[i + 2];
+    
+        // Type checking for safety
+        if (
+          typeof fact === 'string' &&
+          typeof mode === 'number' &&
+          typeof id === 'number'
+        ) {
+          result.push({
+            fact: fact,
+            mode: mode,
+            factId: id
+          });
+        }
+      }
+      
+      return result;
+    };
+    
     const fetchAllFact = async () => {
         setLoading(true);
         setError(null);
         try {
           const result = await getAllFacts();
-          console.log("result: ", result)
           if (result) {
-            setAllFacts(result);
+            
+            console.log("results: ", result)
+            setAllFacts(transformArray(result));
           } else {
-            setAllFacts(["No facts available."])
+            setAllFacts([])
           }
         } catch (err) {
           setError(err instanceof Error ? err.message : 'Failed to fetch fact');
@@ -33,14 +60,16 @@ const FactsPage = () => {
       };
     useEffect(() => {
        fetchAllFact();
-      }, []);
+       setReload(false);
+      }, [reload]);
+
   return (
     <div style={factsPageStyles}>
         <header style={appHeaderStyles}>
       <h1>Your Facts</h1>
       <div style={factsListStyles}>
         {!loading && allFacts.map((fact, index) => (
-          <CartoonBrowserBox key={index} fact={fact} />
+          <CartoonBrowserBox key={index} fact={fact} onChange={() => setReload(true)} />
         ))}
       </div>
       </header>
